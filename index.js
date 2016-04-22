@@ -24,13 +24,8 @@ app.use(express.static('public'));
 
 // include our router
 app.use('/', require('./routers'));
-//app.use('/users', require('./routers/user'));
+//app.use('/discussion', require('./routers/discussion'));
 
-/*
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
-*/
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
