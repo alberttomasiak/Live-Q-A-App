@@ -1,9 +1,31 @@
+// import the modules we want to use
 var express = require('express');
+var jade = require('jade');
+//var cors = require('cors');
+
+// create an application
 var app = express();
 
-app.get('/', function (req, res) {
-  res.send('Hello World!');
-});
+// Initialize cors: Cross Origin Resource Sharing
+// by default, you can only request on the same domain.
+// for example: only the site www.myApp.com can call www.myApp.com/api/users/....
+// if you want to make a different application on another url
+// or you set it up on http://localhost:5000 for example (a different port)
+// then you will need to use this cors module to 'allow' cross origin calls.
+//app.use(cors());
+
+// register jade as our view engine,
+app.set('view engine', 'jade');
+
+// host a static folder (for css files and images)
+// this public folder will be hosted on the root,
+// so anything you put in it will be available on '/'
+app.use(express.static('public'));
+
+// include our router
+app.use('/', require('./routers'));
+//app.use('/discussion', require('./routers/discussion'));
+
 
 app.listen(3000, function () {
   console.log('Example app listening on port 3000!');
