@@ -1,10 +1,14 @@
 // import the modules we want to use
 var express = require('express');
 var jade = require('jade');
+var mongoose = require('mongoose');
 //var cors = require('cors');
 
 // create an application
 var app = express();
+
+// connect to our database
+mongoose.connect('mongodb://localhost/liveQandA');
 
 // Initialize cors: Cross Origin Resource Sharing
 // by default, you can only request on the same domain.
@@ -24,6 +28,7 @@ app.use(express.static('public'));
 
 // include our router
 app.use('/', require('./routers'));
+app.use('/discussion', require('./routers/discussion'));
 //app.use('/discussion', require('./routers/discussion'));
 
 
