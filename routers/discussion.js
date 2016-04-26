@@ -9,7 +9,7 @@ router.post('/create', controller.create);
 //router.put('/:id', controller.update);
 //router.delete('/:id', controller.remove);
 
-router.get('/create', function(req, res){
+router.get('/create', function(req, res){ // moet in controlller
 		res.render('discussionCreate');
 });
 

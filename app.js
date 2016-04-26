@@ -2,6 +2,7 @@
 var express = require('express');
 var jade = require('jade');
 var mongoose = require('mongoose');
+var bodyParser = require('body-parser');
 //var cors = require('cors');
 
 // create an application
@@ -21,10 +22,13 @@ mongoose.connect('mongodb://localhost/liveQandA');
 // register jade as our view engine,
 app.set('view engine', 'jade');
 
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+
 // host a static folder (for css files and images)
 // this public folder will be hosted on the root,
 // so anything you put in it will be available on '/'
-app.use(express.static('public'));
+app.use(express.static('build'));
 
 // include our router
 app.use('/', require('./routers'));
