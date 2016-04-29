@@ -1,0 +1,46 @@
+.thread{
+    margin: 60px 0 60px 0;
+}
+
+.thread__answers{
+    margin-top: 25px;
+    margin-left: 40px;
+}
+.thread__answers ul{
+    list-style: none;
+    padding: 0;
+}
+
+.comment{
+    display: flex;
+    align-items: center;
+    font-size: $font-size-big;
+    font-weight: $font-weight-main;
+}
+
+.comment__profilepic{
+    border-radius: 100%;
+    margin-right: 15px;
+}
+
+.comment__author{
+    margin-right: 5px;
+    color: $color-main;
+    font-size: $font-size-big;
+}
+
+.comment--answer{
+    color: $color-text-light;
+    margin: 20px 0;
+}
+
+.comment--question{
+    background-color: $color-bghighlight;
+    padding: 10px;
+}
+
+@media (min-width: 720px) {
+    .thread{
+        max-width: 700px;
+    }
+}

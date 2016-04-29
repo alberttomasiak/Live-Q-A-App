@@ -2,6 +2,8 @@ doctype html
 html(lang='en')
   head
     title Create discussion
+    link(rel='stylesheet', href='/css/reset.css')
+    link(rel='stylesheet', href='/css/style.css')
   body
     h1 Create a new discussion
     form#createDiscussion(name="creatediscussion",method="post",action="/discussion/create")
