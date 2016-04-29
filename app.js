@@ -36,6 +36,6 @@ app.use('/discussion', require('./routers/discussion'));
 //app.use('/discussion', require('./routers/discussion'));
 
 
-app.listen(3000, function () {
+app.listen(3030, function () {
   console.log('Example app listening on port 3000!');
 });

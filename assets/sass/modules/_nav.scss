@@ -1,0 +1,28 @@
+.nav{
+    display: block;
+    width: 100%;
+    height: 55px;
+    background-color: $color-main;
+}
+
+.nav .container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+}
+
+.nav__logo{
+    color: #fff;
+    text-decoration: none;
+    font-size: $font-size-big;
+    align-self: flex-start;
+}
+
+.nav__link{
+    color: #fff;
+    text-decoration: none;
+    font-size: $font-size-big;
+    padding-left: 20px;
+}
