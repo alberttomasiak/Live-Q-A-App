@@ -1,0 +1,73 @@
+.form--inline{
+    padding: 0;
+    display: flex;
+    margin: 40px 0 0 0;
+}
+.form--inline__input{
+    margin: 0px;
+    height: 2.1em;
+    width: 80%;
+    background-color: #fff;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: none;
+    border-left: 1px solid lighten($color-text-light, 30%);
+    border-bottom: 1px solid lighten($color-text-light, 30%);
+    border-bottom-left-radius: 4px;
+    padding: 0 0 0 10px;
+    font-family: $font-main;
+    font-size: $font-size-main;
+    font-weight: $font-weight-main;
+    color: $color-text-main;
+}
+.form--inline__btn{
+    margin: 0px;
+    padding: 0;
+    width: 20%;
+    border: 2px solid $color-main;
+    background-color: $color-main;
+    color: #fff;
+    font: $font-main;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border-radius: 0px 4px 4px 0px;
+    text-transform: uppercase;
+    font-weight: $font-weight-main;
+    font-size: 0.8em;
+}
+
+::-webkit-input-placeholder {
+    font-family: $font-main;
+    font-size: $font-size-main;
+    font-weight: $font-weight-main;
+}
+
+:-moz-placeholder { /* Firefox 18- */
+    font-family: $font-main;
+    font-size: $font-size-main;
+    font-weight: $font-weight-main;  
+}
+
+::-moz-placeholder {  /* Firefox 19+ */
+    font-family: $font-main;
+    font-size: $font-size-main;
+    font-weight: $font-weight-main;
+}
+
+:-ms-input-placeholder {  
+    font-family: $font-main;
+    font-size: $font-size-main;
+    font-weight: $font-weight-main;
+}
+
+@media (min-width: 720px) {
+    .form--inline__btn{
+        width: 14%;
+    }
+
+    .form--inline__input{
+        width: 90%;
+    }
+}

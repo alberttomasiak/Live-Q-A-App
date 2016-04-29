@@ -1,3 +1,53 @@
+$font-main: 'Cabin', sans-serif;
+//$font-size-small
+$font-size-main: 1.03em;
+$font-size-big: 1.09em;
+//$font-weight-small
+$font-weight-main: 500;
+//font-weight-big
+
+$color-main: #EB5153;
+//#0CF574;
+$color-accent: #363636;
+$color-bghighlight: #F6FFF8;
+$color-text-main: #111;
+$color-text-light: #666;
+
+
+.container{
+    padding: 10px 10px;
+    max-width: 960px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 body{
-    
+    font-family: $font-main;
+    color: $color-text-main;
+    font-weight: $font-weight-main;
+    font-size: $font-size-main;
+}
+
+h1,h2,h3,h4,h5{
+    padding: 0.4em 0;
+}
+
+h1{
+    font-size: 2.6em;
+}
+h2{
+    font-size: 2.4em;
+}
+h3{
+    font-size: 2.2em;
+}
+h4{
+    font-size: 2em;
+}
+h5{
+    font-size: 1.8em;
+}
+
+a{
+    text-decoration: none;
 }
