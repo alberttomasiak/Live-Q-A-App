@@ -33,11 +33,3 @@
     border-color: $color-main;
     box-shadow: 0 2px 0 darken($color-main, 40%);
 }
-
-.flexthis{
-    display: flex;
-    flex-direction: column;
-    padding: 20px;
-    justify-content: flex-start;
-    align-items: flex-start;
-}
