@@ -3,6 +3,10 @@ doctype html
 html
   head
     title Node Authentication
+html(lang='en')
+  head
+    meta(charset='UTF-8')
+    title Login
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='css/reset.css')
     link(rel='stylesheet', href='css/style.css')
@@ -21,3 +25,13 @@ html
             | Or go 
             a(href='/') home
             | .
+      form.form--login(action='')
+        h1.form--login__title Log in
+        span.form--login__feedback This email address doesn't exist.
+        input.form--login__field(type='text', placeholder='Email')
+        span.form--login__feedback Wrong password.
+        input.form--login__field(type='password', placeholder='Password')
+        input.btn.btn--primary.form--login__btn(type='submit', value='Log In')
+        span.form--login__text
+          | Dont' have an account yet? 
+          a(href='/signup') Create one

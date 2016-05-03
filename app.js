@@ -45,6 +45,19 @@ app.use(flash()); // Flash messages from session
 
 require('./routers/index.js')(app, passport); // load our routes
 
+// include our router
+app.use('/', require('./routers'));
+app.use('/discussion', require('./routers/discussion'));
+app.use('/login', function(req, res){
+    // dit moet ergens anders verwerkt worden, mss in een router users of mss in een aparte login router
+    res.render('login');
+});
+app.use('/signup', function(req, res){
+    // dit moet ergens anders verwerkt worden
+    res.render('signup');
+});
+//app.use('/discussion', require('./routers/discussion'));
+
 
 app.listen(port);
 console.log('Webtech 2 live Q&A on port: ' + port);
