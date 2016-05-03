@@ -1,0 +1,26 @@
+doctype html
+// views/signup.ejs
+html
+  head
+    title Node Authentication
+    link(rel='stylesheet', href='css/reset.css')
+    link(rel='stylesheet', href='css/style.css')
+  body
+    .container
+        form.form--login(action='/signup', method='post')
+          h1.form--login__title
+            span.fa.fa-sign-in
+            |  Signup
+          .form-group
+            input.form--login__field(type='text', name='email' placeholder='Email')
+          .form-group
+            input.form--login__field(type='password', name='password' placeholder='Password')
+          button.btn.btn--primary.form--login__btn(type='submit') Signup
+          hr
+          p
+            | Already have an account? 
+            a(href='/login') Login
+          p
+            | Or go 
+            a(href='/') home
+            | .
