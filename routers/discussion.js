@@ -3,7 +3,7 @@ var express = require('express');
 var router = express.Router();
 
 
-router.get('/:id', controller.getOne);
+
 router.get('/create', function(req, res){
     // paginas renderen moet eigenlijk in controlller
     res.render('discussionCreate');
@@ -11,5 +11,6 @@ router.get('/create', function(req, res){
 router.post('/create', controller.create);
 //router.put('/:id', controller.update);
 //router.delete('/:id', controller.remove);
+router.get('/:id', controller.getOne);
 
 module.exports = router;

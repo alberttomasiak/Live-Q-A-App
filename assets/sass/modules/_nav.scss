@@ -15,14 +15,30 @@
 
 .nav__logo{
     color: #fff;
-    text-decoration: none;
     font-size: $font-size-big;
     align-self: flex-start;
 }
-
-.nav__link{
+.nav__logo:visited{
     color: #fff;
-    text-decoration: none;
+}
+.nav__logo:hover{
+    color: #fff;
+}
+.nav__logo:active{
+    color: #fff;
+}
+
+.nav__link:link{
+    color: #fff;
     font-size: $font-size-big;
     padding-left: 20px;
+}
+.nav__link:visited{
+    color: #fff;
+}
+.nav__link:hover{
+    color: #fff;
+}
+.nav__link:active{
+    color: #fff;
 }

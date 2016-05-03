@@ -10,6 +10,7 @@ $color-main: #EB5153;
 //#0CF574;
 $color-accent: #363636;
 $color-bghighlight: #F6FFF8;
+$color-alert: #FF1001;
 $color-text-main: #111;
 $color-text-light: #666;
 
@@ -48,6 +49,17 @@ h5{
     font-size: 1.8em;
 }
 
-a{
+a:link{
+    color: $color-main;
+    font-size: $font-size-big;
     text-decoration: none;
+}
+a:visited{
+    color: $color-main;
+}
+a:hover{
+    color: $color-main;
+}
+a:active{
+    color: $color-main;
 }
