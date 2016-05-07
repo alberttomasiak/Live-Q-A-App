@@ -9,4 +9,4 @@ var discussionSchema = new Schema({
 
 var Discussion = mongoose.model('Discussion', discussionSchema);
 
-module.exports = Discussion
+module.exports = Discussion;

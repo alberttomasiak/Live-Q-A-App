@@ -29,7 +29,6 @@ require('./config/passport')(passport); // pass passport for configuration
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
 app.use(bodyParser()); // get information from html forms
-
 app.set('view engine', 'jade');
 
 // host a static folder (for css files and images)
@@ -38,13 +37,13 @@ app.set('view engine', 'jade');
 app.use(express.static('build'));
 
 // required for passport
-app.use(session({ secret: 'webtech2liveQandA' })); // session secret
+app.use(session({ secret: 'webtech2liveQandA', saveUninitialized: false, resave: false})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // Flash messages from session
 
 require('./routers/index.js')(app, passport); // load our routes
-
+require('./routers/discussion.js')(app, passport);
 // include our router
 app.use('/', require('./routers'));
 app.use('/discussion', require('./routers/discussion'));

@@ -14,7 +14,10 @@ html(lang='en')
     .container
         form.form--login(action='/login', method='post')
           h1.form--login__title Log in
-          input.form--login__field(type='text', name='email' placeholder='Email')
+          if (message.length > 0)
+            #alert
+              p= message
+          input.form--login__field(type='text', name='email' placeholder='Username')
           input.form--login__field(type='password', name='password' placeholder='Password')
           button.btn.btn--primary.form--login__btn(type='submit') Login
           hr
