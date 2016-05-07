@@ -1,6 +1,5 @@
 var Discussion = require('../models/discussion');
 
-
 // create a new discussion (req.body)
 function create(req, res, next) {
     console.log('Hi there');
@@ -21,7 +20,7 @@ function create(req, res, next) {
 module.exports.create = create;
 
 
-// get one discussion by id (req.params.id)
+// render one discussion page by id (req.params.id)
 function getOne(req, res, next) {
     Discussion.findOne({_id: req.params.id}, function onDiscussionFound(err, discussion) {
         if(!discussion) {
@@ -30,7 +29,6 @@ function getOne(req, res, next) {
         console.log(discussion);
         // we return the json version with cleaned up model to the user
         //res.send(discussion.toJSON());
-
         res.render('discussion', { title: discussion.title, description: discussion.description});
     });
 }
