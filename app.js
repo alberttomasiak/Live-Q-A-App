@@ -37,7 +37,7 @@ app.set('view engine', 'jade');
 app.use(express.static('build'));
 
 // required for passport
-app.use(session({ secret: 'webtech2liveQandA', saveUninitialized: false, resave: false})); // session secret
+app.use(session({ secret: 'webtech2liveQandA', saveUninitialized: false, resave: false, maxAge: new Date(Date.now() + 3600000), expires: new Date(Date.now() + 360000)})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // Flash messages from session
