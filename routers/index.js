@@ -1,12 +1,8 @@
 module.exports = function(app, passport) {
 	//landing 
-    app.get('/', function(req, res) {
-        res.render('pass.jade'); // load the index.ejs file
+    app.get('/', isLoggedIn, function(req, res) {
+        res.render('index.jade', {user : req.user}); // load the index.ejs file
     });
-
-	app.get('/home', isLoggedIn, function(req, res){
-		res.render('index.jade', {user : req.user});
-	});
 	
 	//login
     app.get('/login', function(req, res) {
@@ -20,14 +16,14 @@ module.exports = function(app, passport) {
 	
 	//process signup
 	app.post('/signup', passport.authenticate('local-signup',{
-		successRedirect : '/home', // redirect to secure profile section
+		successRedirect : '/', // redirect to secure profile section
 		failureRedirect : '/signup', // redirect to signup page on failure
 		failureFlash : true // allow flash messages
 	}));
 	
 	//process login
 	app.post('/login', passport.authenticate('local-login', {
-		successRedirect : '/home',
+		successRedirect : '/',
 		failureRedirect : '/login',
 		failureFlash : true
 	}));
@@ -53,5 +49,5 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
     // if they aren't redirect them to the home page
-    res.redirect('/');
+    res.redirect('/login');
 }
