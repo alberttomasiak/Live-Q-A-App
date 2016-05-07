@@ -8,10 +8,12 @@ function create(req, res, next) {
     
     var title = req.body.title;
     var description = req.body.description;
+    var moderatorID = req.user._id;
     
     var newDiscussion = new Discussion ({
         title: title,
-        description: description
+        description: description,
+        moderatorID: moderatorID
     });
     
     newDiscussion.save();
