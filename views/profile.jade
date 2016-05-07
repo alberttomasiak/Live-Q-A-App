@@ -13,4 +13,6 @@ html
         h1
           |  Profile Page
         a.btn.btn-default.btn-sm(href='/logout') Logout
+        if (user)
+          p= user.local.email
 
