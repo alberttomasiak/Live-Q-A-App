@@ -37,13 +37,14 @@ app.set('view engine', 'jade');
 app.use(express.static('build'));
 
 // required for passport
-app.use(session({ secret: 'webtech2liveQandA', saveUninitialized: false, resave: false, maxAge: new Date(Date.now() + 3600000), expires: new Date(Date.now() + 360000)})); // session secret
+app.use(session({ secret: 'webtech2liveQandA', saveUninitialized: false, resave: false, maxAge: new Date(Date.now() + 3600000), expires: new Date(Date.now() + 3600000)})); // session secret
 app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // Flash messages from session
 
 require('./routers/index.js')(app, passport); // load our routes
 require('./routers/discussion.js')(app, passport);
+require('./models/question.js')(app, passport);
 // include our router
 app.use('/', require('./routers'));
 app.use('/discussion', require('./routers/discussion'));
@@ -56,7 +57,6 @@ app.use('/signup', function(req, res){
     res.render('signup');
 });
 //app.use('/discussion', require('./routers/discussion'));
-
 
 app.listen(port);
 console.log('Webtech 2 live Q&A on port: ' + port);

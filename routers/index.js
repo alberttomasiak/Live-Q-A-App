@@ -1,9 +1,8 @@
 module.exports = function(app, passport) {
+	var mongoose = require('mongoose');
+	var controller = require('../controllers/discussion');
 	//landing 
-    app.get('/', isLoggedIn, function(req, res) {
-        res.render('index.jade', {user : req.user}); // load the index.ejs file
-    });
-	
+    app.get('/', controller.getDiscussions);
 	//login
     app.get('/login', function(req, res) {
         res.render('login.jade', { message: req.flash('loginMessage')});
@@ -40,7 +39,6 @@ module.exports = function(app, passport) {
         req.logout();
         res.redirect('/');
     });
-	
 };
 
 // middleware to check if user is logged in

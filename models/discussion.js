@@ -4,10 +4,8 @@ var Schema = mongoose.Schema;
 var discussionSchema = new Schema({
     title: String,
     description: String,
-    moderatorID: String
+    moderatorID: Object
 });
 
-
 var Discussion = mongoose.model('Discussion', discussionSchema);
-
 module.exports = Discussion;
