@@ -11,63 +11,45 @@ html(lang='en')
       .container
         a.nav__logo(href='/') liveQandA
         div
-          a.nav__link(href='/login') Log In
-          a.nav__link(href='/signup') Sign Up
+          if(user)
+            a.nav__link(href='/u/'+ user.local.username)= user.local.username
+            a.nav__link(href='/logout') Log out
+          else
+            a.nav__link(href='/login') Log in
+            a.nav__link(href='/signup') Sign Up
     .container
       header
         h1 #{title}
         p #{description}
+        if(user)
+          p= user.local.username
         span June 20, 2016
       content
-        form.form.form--inline(action='')
-          input.form--inline__input(type='text', placeholder='Ask a question...')
-          button.form--inline__btn(type='submit') Ask
+        if(user)
+          form#askQuestion.form.form--inline(name='askQuestion', method='POST', action='/discussion/askQuestion')
+            input.form--inline__input(type='text', name='question', placeholder='Your question')
+            input#discussionID(type='hidden', value=discussionID, name='discussionID')
+            button#questionSubmit.form--inline__btn(type='submit', name='questionSubmit') Ask
+        else
+          p Log in or sign up to ask a question.
         .thread
           .thread__question
-            .comment.comment--question
-              img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/48.jpg', alt='')
-              div
-                a.comment__author(href='#') stevejobs
-                span.comment__text Waarvoor dient die Express nu weer?
-          .thread__answers
-            ul
-              li
-                .comment.comment--answer
-                  img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
-                  div
-                    a.comment__author(href='#') friendlywhale
-                    span.comment__text Volgens mij zit de routing daar standaard in, anders moet je dat zelf schrijven.
-              li
-                .comment.comment--answer
-                  img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/c_southam/48.jpg', alt='')
-                  div
-                    a.comment__author(href='#') billgates
-                    span.comment__text Klopt thx!
-            form.form.form--inline(action='')
-              input.form--inline__input(type='text', placeholder='Comment...')
-              button.form--inline__btn(type='submit') Send
-        .thread
-          .thread__question
-            .comment.comment--question
-              img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/adhamdannaway/48.jpg', alt='')
-              div
-                a.comment__author(href='#') stevejobs
-                span.comment__text Waarvoor dient die Express nu weer?
-          .thread__answers
-            ul
-              li
-                .comment.comment--answer
-                  img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
-                  div
-                    a.comment__author(href='#') friendlywhale
-                    span.comment__text Volgens mij zit de routing daar standaard in, anders moet je dat zelf schrijven.
-              li
-                .comment.comment--answer
-                  img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/c_southam/48.jpg', alt='')
-                  div
-                    a.comment__author(href='#') billgates
-                    span.comment__text Klopt thx!
-            form.form.form--inline(action='')
-              input.form--inline__input(type='text', placeholder='Comment...')
-              button.form--inline__btn(type='submit') Send
-      footer
+            if questions
+              each question in questions
+                .comment.comment--question
+                  span.comment__text= question.question
+                  a.comment__author= question.username
+                if comments
+                  each comment in comments
+                    if (comment.questionID.toString() == question._id.toString())
+                      div
+                        a.comment__author= comment.username
+                        span.comment__text= comment.comment
+                if(user)
+                  form#postComment.form.form--inline(name='postComment', method='POST', action='/discussion/postComment')
+                    input.form--inline__input(type='text', name='comment', placeholder='Your comment')
+                    input#questionID(type='hidden', value=question._id, name='questionID')
+                    input#discussionIDComment(type='hidden', value=discussionID, name='discussionID')
+                    button#commentSubmit.form--inline__btn(type='submit', name='commentSubmit') Comment
+                else
+                  p Log in or sign up to comment.
