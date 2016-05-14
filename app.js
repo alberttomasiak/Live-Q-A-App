@@ -1,15 +1,19 @@
 // import the modules we want to use
-var express = require('express');
-var jade = require('jade');
+var express  = require('express');
+var app      = express();
+var port     = process.env.PORT || 3030;
 var mongoose = require('mongoose');
-var bodyParser = require('body-parser');
-//var cors = require('cors');
+var passport = require('passport');
+var flash    = require('connect-flash');
+var morgan       = require('morgan');
+var cookieParser = require('cookie-parser');
+var bodyParser   = require('body-parser');
+var session      = require('express-session');
 
-// create an application
-var app = express();
+//db connection
+var db = require('./config/database.js');
+mongoose.connect(db.url);
 
-// connect to our database
-mongoose.connect('mongodb://localhost/liveQandA');
 
 // Initialize cors: Cross Origin Resource Sharing
 // by default, you can only request on the same domain.
@@ -19,17 +23,28 @@ mongoose.connect('mongodb://localhost/liveQandA');
 // then you will need to use this cors module to 'allow' cross origin calls.
 //app.use(cors());
 
-// register jade as our view engine,
-app.set('view engine', 'jade');
+require('./config/passport')(passport); // pass passport for configuration
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded());
+// set up our express application
+app.use(morgan('dev')); // log every request to the console
+app.use(cookieParser()); // read cookies (needed for auth)
+app.use(bodyParser()); // get information from html forms
+app.set('view engine', 'jade');
 
 // host a static folder (for css files and images)
 // this public folder will be hosted on the root,
 // so anything you put in it will be available on '/'
 app.use(express.static('build'));
 
+// required for passport
+app.use(session({ secret: 'webtech2liveQandA', saveUninitialized: false, resave: false, maxAge: new Date(Date.now() + 3600000), expires: new Date(Date.now() + 3600000)})); // session secret
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(flash()); // Flash messages from session
+
+require('./routers/index.js')(app, passport); // load our routes
+require('./routers/discussion.js')(app, passport);
+require('./models/question.js')(app, passport);
 // include our router
 app.use('/', require('./routers'));
 app.use('/discussion', require('./routers/discussion'));
@@ -43,7 +58,5 @@ app.use('/signup', function(req, res){
 });
 //app.use('/discussion', require('./routers/discussion'));
 
-
-app.listen(3030, function () {
-  console.log('Example app listening on port 3000!');
-});
+app.listen(port);
+console.log('Webtech 2 live Q&A on port: ' + port);

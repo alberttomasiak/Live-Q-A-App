@@ -1,4 +1,8 @@
 doctype html
+// views/signup.ejs
+html
+  head
+    title Node Authentication
 html(lang='en')
   head
     meta(charset='UTF-8')
@@ -8,17 +12,23 @@ html(lang='en')
     link(rel='stylesheet', href='css/style.css')
   body
     .container
-      form.form--login(action='')
-        h1.form--login__title Sign up
-        span.form--login__feedback This email address doesn't exist.
-        input.form--login__field(type='text', placeholder='Email')
-        span.form--login__feedback Username already exists.
-        input.form--login__field(type='text', placeholder='Username')
-        span.form--login__feedback Wrong password.
-        input.form--login__field(type='password', placeholder='Password')
-        span.form--login__feedback Passwords don't match.
-        input.form--login__field(type='password', placeholder='Password again...')
-        input.btn.btn--primary.form--login__btn(type='submit', value='Sign Up')
-        span.form--login__text
-          | Already have an account? 
-          a(href='/login') Log in
+        form.form--login(action='/signup', method='post')
+          h1.form--login__title
+            span.fa.fa-sign-in
+            |  Signup
+          .form-group
+            if (message.length > 0)
+              #alert
+                p= message
+            input.form--login__field(type='text', name='username' placeholder='Username')
+          .form-group
+            input.form--login__field(type='password', name='password' placeholder='Password')
+          button.btn.btn--primary.form--login__btn(type='submit') Signup
+          hr
+          p
+            | Already have an account? 
+            a(href='/login') Login
+          p
+            | Or go 
+            a(href='/') home
+            | .

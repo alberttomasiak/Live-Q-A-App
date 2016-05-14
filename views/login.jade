@@ -1,4 +1,8 @@
 doctype html
+// views/login.ejs
+html
+  head
+    title Node Authentication
 html(lang='en')
   head
     meta(charset='UTF-8')
@@ -8,13 +12,19 @@ html(lang='en')
     link(rel='stylesheet', href='css/style.css')
   body
     .container
-      form.form--login(action='')
-        h1.form--login__title Log in
-        span.form--login__feedback This email address doesn't exist.
-        input.form--login__field(type='text', placeholder='Email')
-        span.form--login__feedback Wrong password.
-        input.form--login__field(type='password', placeholder='Password')
-        input.btn.btn--primary.form--login__btn(type='submit', value='Log In')
-        span.form--login__text
-          | Dont' have an account yet? 
-          a(href='/signup') Create one
+        form.form--login(action='/login', method='post')
+          h1.form--login__title Log in
+          if (message.length > 0)
+            #alert
+              p= message
+          input.form--login__field(type='text', name='username' placeholder='Username')
+          input.form--login__field(type='password', name='password' placeholder='Password')
+          button.btn.btn--primary.form--login__btn(type='submit') Login
+          hr
+          p
+            | Need an account? 
+            a(href='/signup') Signup
+          p
+            | Or go 
+            a(href='/') home
+            | .
