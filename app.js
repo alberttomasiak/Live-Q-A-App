@@ -9,6 +9,23 @@ var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
+// socket.io
+var server = require('http').Server(app);
+var io = require('socket.io')(server);
+
+// socket.io
+io.on('connection', function(socket){
+	console.log('a user connected');
+	
+	socket.on('comment', function(msg){
+		console.log(msg);
+		io.emit('comment', msg);
+	});
+	
+	socket.on('disconnect', function(){
+		console.log('user disconnected');
+	});
+});
 
 //db connection
 var db = require('./config/database.js');
@@ -58,5 +75,7 @@ app.use('/signup', function(req, res){
 });
 //app.use('/discussion', require('./routers/discussion'));
 
-app.listen(port);
+
+server.listen(80);
+//app.listen(port);
 console.log('Webtech 2 live Q&A on port: ' + port);
