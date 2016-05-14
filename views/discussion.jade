@@ -32,24 +32,31 @@ html(lang='en')
             button#questionSubmit.form--inline__btn(type='submit', name='questionSubmit') Ask
         else
           p Log in or sign up to ask a question.
-        .thread
-          .thread__question
-            if questions
-              each question in questions
-                .comment.comment--question
-                  span.comment__text= question.question
-                  a.comment__author= question.username
-                if comments
-                  each comment in comments
-                    if (comment.questionID.toString() == question._id.toString())
+        if questions
+          each question in questions
+            .thread
+              .thread__question
+                    .comment.comment--question
+                      img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
                       div
-                        a.comment__author= comment.username
-                        span.comment__text= comment.comment
-                if(user)
-                  form#postComment.form.form--inline(name='postComment', method='POST', action='/discussion/postComment')
-                    input.form--inline__input(type='text', name='comment', placeholder='Your comment')
-                    input#questionID(type='hidden', value=question._id, name='questionID')
-                    input#discussionIDComment(type='hidden', value=discussionID, name='discussionID')
-                    button#commentSubmit.form--inline__btn(type='submit', name='commentSubmit') Comment
-                else
-                  p Log in or sign up to comment.
+                        a.comment__author= question.username
+                        span.comment__text= question.question
+                    if comments
+                      .thread__answers
+                        ul
+                          each comment in comments
+                            if (comment.questionID.toString() == question._id.toString())
+                              li
+                                .comment.comment--answer
+                                  img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
+                                  div
+                                    a.comment__author= comment.username
+                                    span.comment__text= comment.comment
+                        if(user)
+                          form#postComment.form.form--inline(name='postComment', method='POST', action='/discussion/postComment')
+                            input.form--inline__input(type='text', name='comment', placeholder='Your comment')
+                            input#questionID(type='hidden', value=question._id, name='questionID')
+                            input#discussionIDComment(type='hidden', value=discussionID, name='discussionID')
+                            button#commentSubmit.form--inline__btn(type='submit', name='commentSubmit') Comment
+                        else
+                          p Log in or sign up to comment.
