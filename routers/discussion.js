@@ -14,7 +14,7 @@ app.post('/discussion/create', controller.create);
 app.get('/discussion/:id', controller.getOne);
 
 app.post('/discussion/askQuestion', controller.askQuestion);
-app.post('/discussion/postComment', controller.postComment);
+//app.post('/discussion/postComment', controller.postComment);
 
 //module.exports = app;
 

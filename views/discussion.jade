@@ -6,9 +6,6 @@ html(lang='en')
     meta(name='viewport', content='width=device-width, initial-scale=1')
     link(rel='stylesheet', href='/css/reset.css')
     link(rel='stylesheet', href='/css/style.css')
-    script(src='ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js')
-    script(src='/socket.io/socket.io.js')
-    script(src='/js/socket.js')
   body
     navigation.nav
       .container
@@ -63,3 +60,8 @@ html(lang='en')
                             button#commentSubmit.form--inline__btn(type='submit', name='commentSubmit') Comment
                         else
                           p Log in or sign up to comment.
+                          
+                          
+    script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js')
+    script(src='/socket.io/socket.io.js')
+    script(src='/js/discussion.js')

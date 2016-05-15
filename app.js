@@ -10,22 +10,28 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 // socket.io
-var server = require('http').Server(app);
+var server = require('http').createServer(app);
 var io = require('socket.io')(server);
 
 // socket.io
-io.on('connection', function(socket){
-	console.log('a user connected');
+io.on('connection', function (socket) {
 	
-	socket.on('comment', function(msg){
-		console.log(msg);
-		io.emit('comment', msg);
+	socket.on('comment', function (data) {
+		// we tell the client to execute 'new message'
+		console.log("BERICHT: " + data);
+		io.emit('comment', data);
 	});
 	
-	socket.on('disconnect', function(){
-		console.log('user disconnected');
+	/*
+	// TEST FUNCTION
+	// when the client emits 'new message', this listens and executes
+	socket.on('key', function () {
+		// we tell the client to execute 'new message'
+		io.emit('key');
 	});
+	*/
 });
+
 
 //db connection
 var db = require('./config/database.js');
@@ -75,7 +81,8 @@ app.use('/signup', function(req, res){
 });
 //app.use('/discussion', require('./routers/discussion'));
 
-
-server.listen(80);
+server.listen(port, function () {
+  console.log('Server listening at port %d', port);
+});
 //app.listen(port);
-console.log('Webtech 2 live Q&A on port: ' + port);
+//console.log('Webtech 2 live Q&A on port: ' + port);
