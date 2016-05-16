@@ -1,0 +1,1 @@
+var clipboard=new Clipboard("#btnShareDiscussion");clipboard.on("success",function(o){console.info("Action:",o.action),console.info("Text:",o.text),console.info("Trigger:",o.trigger),$("#feedbackShareDiscussion").text("Link copied to clipboard!"),o.clearSelection()});

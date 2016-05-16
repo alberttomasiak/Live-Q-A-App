@@ -25,6 +25,8 @@ html(lang='en')
         if(user)
           input#currentUsername(type='hidden', value=user.local.username, name='currentUsername')
         span= time
+        button#btnShareDiscussion.btn(data-clipboard-text='localhost:3030/discussion/'+discussionID) Share discussion
+        span#feedbackShareDiscussion
         ul
           li user1
           li user2
@@ -68,7 +70,8 @@ html(lang='en')
                           
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js')
     script(src='https://cdn.socket.io/socket.io-1.2.0.js')
-    script(src='http://code.jquery.com/jquery-1.11.1.js')
+    script(src='/js/clipboard.min.js')
+    script(src='/js/share.js')
     if(user)
       script.
         var socket = io();
