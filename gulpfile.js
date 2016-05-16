@@ -4,6 +4,7 @@ var concatCss = require('gulp-concat-css'); // merge css files together
 var sass = require('gulp-sass'); // sass for gulp
 var imagemin = require('gulp-imagemin'); // image optimization
 var pngquant = require('imagemin-pngquant'); // bundled with imagemin
+var uglify = require('gulp-uglify'); // minify javascript files
 
 gulp.task('default', function(){
     console.log("It's me, your friend, gulp? Wanna go bowling?");
@@ -28,10 +29,17 @@ gulp.task('image-minify', function(){
     .pipe(gulp.dest('build/img'));
 });
 
+gulp.task('compress-js', function() {
+  return gulp.src('assets/js/*.js')
+    .pipe(uglify())
+    .pipe(gulp.dest('js'));
+});
+
 // watch for changes
 gulp.task('watch', function(){
     gulp.watch('assets/sass/**/*.scss', ['sass']);
     gulp.watch('assets/img/*', ['image-minify']);
+    gulp.watch('assets/js/*', ['compress-js']);
 });
 
 // gulp livereload
