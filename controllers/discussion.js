@@ -79,7 +79,6 @@ function postComment(req, res, next){
 }
 module.exports.postComment = postComment;
 
-
 function getDiscussions(req, res, next){
 	var Discussions = Discussion.find({}, function onDiscussionsFound(err, discussionsFound){
 		res.render('index', {discussions: discussionsFound, user: req.user});

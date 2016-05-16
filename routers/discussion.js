@@ -16,12 +16,7 @@ app.get('/discussion/:id', controller.getOne);
 app.post('/discussion/askQuestion', controller.askQuestion);
 //app.post('/discussion/postComment', controller.postComment);
 
-//module.exports = app;
-
-
 };
-
-
 
 // middleware to check if user is logged in
 function isLoggedIn(req, res, next) {
