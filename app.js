@@ -15,11 +15,23 @@ var io = require('socket.io')(server);
 
 // socket.io
 io.on('connection', function (socket) {
+	var usercount = 0;
+	var users = [];
+	
+	socket.on('connection', function (socket) {
+		socket.emit('joined');
+	});
 	
 	socket.on('comment', function (data) {
 		// we tell the client to execute 'new message'
 		console.log("BERICHT: " + data);
 		io.emit('comment', data);
+	});
+	
+	socket.on('addUser', function (name) {
+		users.push(name);
+		console.log("user "+data+" joined the discussion");
+		io.emit('addUser', users);
 	});
 	
 	/*

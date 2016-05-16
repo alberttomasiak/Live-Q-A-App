@@ -23,7 +23,11 @@ html(lang='en')
         p #{description}
         if(user)
           p= user.local.username
+          input#currentUsername(type='hidden', value=user.local.username, name='currentUsername')
         span June 20, 2016
+        ul
+          li user1
+          li user2
       content
         if(user)
           form#askQuestion.form.form--inline(name='askQuestion', method='POST', action='/discussion/askQuestion')

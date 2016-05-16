@@ -6,6 +6,7 @@ $( document ).ready(function() {
 	var formComment = $('#postComment'); // form comments
 	var btnComment = $('#commentSubmit'); // submit button comments
 	var inputComment = $('#placeComment'); // input field comments
+	var loggedInUser = $('#currentUsername').val(); // username of logged in user
 
 	// TEST FUNCTION
 	/*
@@ -18,6 +19,14 @@ $( document ).ready(function() {
 		console.log('Key pressed');
 	});
 	*/
+	
+	socket.on('addUser', function(data){
+		console.log('Watching ' + data);
+	});
+	
+	socket.on('join', function(){
+		socket.emit('addUser', loggedInUser);
+	});
 	
 	formComment.submit(function(e){
 		var comment = inputComment.val();
