@@ -1,6 +1,7 @@
 var Discussion = require('../models/discussion');
 var Question = require('../models/question');
 var Comment = require('../models/comment');
+var User = require('../models/user');
 var mongoose = require('mongoose');
 var db = require('../config/database.js');
 // create a new discussion (req.body)
@@ -30,17 +31,17 @@ function getOne(req, res, next) {
         if(!discussion) {
             res.status(404).send("Discussion not found");
         }
-		
-		var Questions = Question.find({discussionID: discussion._id}, function(err, dataQuestions){
-			
-			var Comments = Comment.find({discussionID: discussion._id}, function(err, dataComments){
-				var time = discussion.time.toString();
-                var format = time.substring(4,21);
-				//console.log(dataQuestions.length);
-				res.render('discussion', { title: discussion.title, time: format, description: discussion.description, user: req.user, discussionID: discussion._id,
-			    questions: dataQuestions, comments: dataComments});
+		var moderator = User.findOne({_id: discussion.moderatorID}, function(err, moderator){
+			var Questions = Question.find({discussionID: discussion._id}, function(err, dataQuestions){
+				var Comments = Comment.find({discussionID: discussion._id}, function(err, dataComments){
+					var time = discussion.time.toString();
+					var format = time.substring(4,21);
+					//console.log(dataQuestions.length);
+					res.render('discussion', { title: discussion.title, time: format, description: discussion.description, user: req.user, moderator: moderator.local.username, discussionID: discussion._id,
+					questions: dataQuestions, comments: dataComments});
+				});
 			});
-		});
+	   });
     });
 }
 module.exports.getOne = getOne;

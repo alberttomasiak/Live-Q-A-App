@@ -21,8 +21,8 @@ html(lang='en')
       header
         h1 #{title}
         p #{description}
+        p Moderator: #{moderator}
         if(user)
-          p= user.local.username
           input#currentUsername(type='hidden', value=user.local.username, name='currentUsername')
         span= time
         ul
