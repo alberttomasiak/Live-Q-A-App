@@ -35,7 +35,7 @@ function getOne(req, res, next) {
 			
 			var Comments = Comment.find({discussionID: discussion._id}, function(err, dataComments){
 				var time = discussion.time.toString();
-                var format = time.substring(4,15);
+                var format = time.substring(4,21);
 				//console.log(dataQuestions.length);
 				res.render('discussion', { title: discussion.title, time: format, description: discussion.description, user: req.user, discussionID: discussion._id,
 			    questions: dataQuestions, comments: dataComments});
