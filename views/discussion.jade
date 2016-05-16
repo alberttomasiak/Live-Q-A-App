@@ -31,44 +31,47 @@ html(lang='en')
       content
         if(user)
           form#askQuestion.form.form--inline(name='askQuestion', method='POST', action='/discussion/askQuestion')
-            input.form--inline__input(type='text', name='question', placeholder='Your question')
+            input.askQuestion.form--inline__input(type='text', name='question', placeholder='Your question')
             input#discussionID(type='hidden', value=discussionID, name='discussionID')
             button#questionSubmit.form--inline__btn(type='submit', name='questionSubmit') Ask
         else
           p Log in or sign up to ask a question.
-        if questions
-          each question in questions
-            .thread
-              .thread__question
-                    .comment.comment--question
-                      img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
-                      div
-                        a.comment__author= question.username
-                        span.comment__text= question.question
-                    if comments
-                      .thread__answers
-                        ul(class=question.id)
-                          each comment in comments
-                            if (comment.questionID.toString() == question._id.toString())
-                              li
-                                .comment.comment--answer
-                                  img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
-                                  div
-                                    a.comment__author= comment.username
-                                    span.comment__text= comment.comment
-                        if(user)
-                          form#postComment.formComment.form.form--inline(name='postComment', method='POST', action='/discussion/postComment')
-                            input#placeComment.placeComment.form--inline__input(type='text', name='comment', placeholder='Your comment')
-                            input#questionID(type='hidden', value=question._id, name='questionID')
-                            input#discussionIDComment(type='hidden', value=discussionID, name='discussionID')
-                            button#commentSubmit.form--inline__btn(type='submit', name='commentSubmit') Comment
-                        else
-                          p Log in or sign up to comment.
+        
+        .content
+          if questions
+            each question in questions
+              .thread
+                .thread__question
+                  div(class=question.id)
+                      .comment.comment--question
+                        img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
+                        div
+                          a.comment__author= question.username
+                          span.comment__text= question.question
+                      if comments
+                        .thread__answers
+                          ul(class=question.id)
+                            each comment in comments
+                              if (comment.questionID.toString() ==  question._id.toString())
+                                li
+                                  .comment.comment--answer
+                                    img.comment__profilepic(src='https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg', alt='')
+                                    div
+                                      a.comment__author= comment.username
+                                      span.comment__text= comment.comment
+                          if(user)
+                            form#postComment.formComment.form.form--inline(name='postComment', method='POST', action='/discussion/postComment')
+                              input#placeComment.placeComment.form--inline__input(type='text', name='comment', placeholder='Your comment')
+                              input#questionID(type='hidden', value=question._id, name='questionID')
+                              input#discussionIDComment(type='hidden', value=discussionID, name='discussionID')
+                              button#commentSubmit.form--inline__btn(type='submit', name='commentSubmit') Comment
+                          else
+                            p Log in or sign up to comment.
                           
                           
     script(src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js')
     script(src='https://cdn.socket.io/socket.io-1.2.0.js')
-    script(src='http://code.jquery.com/jquery-1.11.1.js')
+    script(src='../assets/js/discussion.js')
     if(user)
       script.
         var socket = io();
@@ -83,11 +86,13 @@ html(lang='en')
             return false;
           });
         });
-      
+        
+       
+        
         socket.on('comment', function(msg){
         var questionID = msg.questionID;
         var comment = msg.comment;
-        $("."+questionID).append('<li><div class="comment comment--answer"><img class="comment__profilepic" src="https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg" alt=""><div><a class="comment__author">'+ "#{user.local.username}" +'</a><span class="comment__text">'+comment+'</span></div></div></li>');
+        $("."+questionID+" ul").append('<li><div class="comment comment--answer"><img class="comment__profilepic" src="https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg" alt=""><div><a class="comment__author">'+ "#{user.local.username}" +'</a><span class="comment__text">'+comment+'</span></div></div></li>');
         });
     else
       script.
@@ -96,5 +101,5 @@ html(lang='en')
         socket.on('comment', function(msg){
         var questionID = msg.questionID;
         var comment = msg.comment;
-        $("."+questionID).append('<li><div class="comment comment--answer"><img class="comment__profilepic" src="https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg" alt=""><div><a class="comment__author">'+ "Bob  " +'</a><span class="comment__text">'+comment+'</span></div></div></li>');
+        $("."+questionID+" ul").append('<li><div class="comment comment--answer"><img class="comment__profilepic" src="https://s3.amazonaws.com/uifaces/faces/twitter/whale/48.jpg" alt=""><div><a class="comment__author">'+ "Bob  " +'</a><span class="comment__text">'+comment+'</span></div></div></li>');
         });

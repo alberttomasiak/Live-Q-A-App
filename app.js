@@ -15,6 +15,7 @@ var io = require('socket.io')(server);
 
 
 var Comment = require('./models/comment');
+var Question = require('./models/question');
 // socket.io
 io.on('connection', function (socket) {
 	var usercount = 0;
@@ -43,8 +44,25 @@ io.on('connection', function (socket) {
           }else{
             console.log('Comment has been added to your database.');
           }
-        })
+        });
 	});
+  
+    /*socket.on('question', function(data){
+      console.log("QUESTION:" + data);
+      io.emit('question', {username: data.username, question: data.question, discussionID: data.discussionID});
+      var username = data.username;
+      var question = data.question;
+      var discussionID = data.discussionID;
+      console.log(username + " " + question + " " + discussionID);
+      
+      Question.create({username: username, question: question, discussionID: mongoose.Types.ObjectId(discussionID)}, function(err, success){
+        if(err){
+          console.log(err);
+        }else{
+          console.log('Question werd in database gezet.');
+        }
+      });
+    });*/
 	
 	socket.on('disconnect', function(){
 		console.log('A user has disconnected.');
