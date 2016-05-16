@@ -32,7 +32,7 @@ gulp.task('image-minify', function(){
 gulp.task('compress-js', function() {
   return gulp.src('assets/js/*.js')
     .pipe(uglify())
-    .pipe(gulp.dest('js'));
+    .pipe(gulp.dest('build/js'));
 });
 
 // watch for changes
