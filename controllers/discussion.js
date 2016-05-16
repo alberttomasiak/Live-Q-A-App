@@ -40,7 +40,7 @@ function getOne(req, res, next) {
 					res.render('discussion', { title: discussion.title, time: format, description: discussion.description, user: req.user, moderator: moderator.local.username, discussionID: discussion._id,
 					questions: dataQuestions, comments: dataComments});
 				});
-			});
+			}).sort('-_id');
 	   });
     });
 }
