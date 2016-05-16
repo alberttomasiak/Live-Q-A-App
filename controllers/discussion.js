@@ -57,6 +57,7 @@ function askQuestion(req, res, next){
 		discussionID: mongoose.Types.ObjectId(discussionID)
 	});
 	newQuestion.save();
+	res.redirect(req.get('referer'));
 }
 module.exports.askQuestion = askQuestion;
 
@@ -74,6 +75,7 @@ function postComment(req, res, next){
 		discussionID: mongoose.Types.ObjectId(discussionID)
 	});
 	newComment.save();
+	res.redirect(req.get('referer'));
 }
 module.exports.postComment = postComment;
 
