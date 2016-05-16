@@ -39,8 +39,8 @@ $( document ).ready(function() {
 
 
 	socket.on('comment', function(data){
-		//var li = "<li>"+msg+"</li>";
-		//$('.thread__answers ul').append(li);
+		var li = "<li>"+msg+"</li>";
+		$('.thread__answers ul').append($('<li>').text(data));
 		console.log("Bericht: " + data);
 	});
 

@@ -10,9 +10,11 @@ var cookieParser = require('cookie-parser');
 var bodyParser   = require('body-parser');
 var session      = require('express-session');
 // socket.io
-var server = require('http').createServer(app);
+var server = require('http').Server(app);
 var io = require('socket.io')(server);
 
+
+var Comment = require('./models/comment');
 // socket.io
 io.on('connection', function (socket) {
 	var usercount = 0;
@@ -25,7 +27,27 @@ io.on('connection', function (socket) {
 	socket.on('comment', function (data) {
 		// we tell the client to execute 'new message'
 		console.log("BERICHT: " + data);
-		io.emit('comment', data);
+		io.emit('comment', {comment: data.comment, questionID: data.questionID});
+        console.log(data.user);
+        console.log(data.comment);
+        console.log(data.questionID);
+        console.log(data.discussionID);
+        var username = data.user;
+        var comment = data.comment;
+        var questionID = data.questionID;
+        var discussionID = data.discussionID;
+      
+        Comment.create({username: data.user, comment: data.comment, questionID: mongoose.Types.ObjectId(data.questionID), discussionID: mongoose.Types.ObjectId(data.discussionID)}, function(err, success){
+          if(err){
+            console.log(err);
+          }else{
+            console.log('Comment has been added to your database.');
+          }
+        })
+	});
+	
+	socket.on('disconnect', function(){
+		console.log('A user has disconnected.');
 	});
 	
 	socket.on('addUser', function (name) {
@@ -58,17 +80,13 @@ mongoose.connect(db.url);
 // then you will need to use this cors module to 'allow' cross origin calls.
 //app.use(cors());
 
-require('./config/passport')(passport); // pass passport for configuration
-
-// set up our express application
+require('./config/passport')(passport); 
 app.use(morgan('dev')); // log every request to the console
 app.use(cookieParser()); // read cookies (needed for auth)
-app.use(bodyParser()); // get information from html forms
+app.use(bodyParser.json()); // get information from html forms
+	app.use(bodyParser.urlencoded({extended: true}));
 app.set('view engine', 'jade');
 
-// host a static folder (for css files and images)
-// this public folder will be hosted on the root,
-// so anything you put in it will be available on '/'
 app.use(express.static('build'));
 
 // required for passport
@@ -77,20 +95,13 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.use(flash()); // Flash messages from session
 
-require('./routers/index.js')(app, passport); // load our routes
+require('./routers/index')(app, passport); // load our routes
 require('./routers/discussion.js')(app, passport);
 require('./models/question.js')(app, passport);
 // include our router
 app.use('/', require('./routers'));
 app.use('/discussion', require('./routers/discussion'));
-app.use('/login', function(req, res){
-    // dit moet ergens anders verwerkt worden, mss in een router users of mss in een aparte login router
-    res.render('login');
-});
-app.use('/signup', function(req, res){
-    // dit moet ergens anders verwerkt worden
-    res.render('signup');
-});
+
 //app.use('/discussion', require('./routers/discussion'));
 
 server.listen(port, function () {

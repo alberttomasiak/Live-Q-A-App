@@ -10,12 +10,15 @@ html(lang="en")
       h1 Homepage
       if(user)
         a.btn(href='/discussion/create', role='button') Create a discussion
-        a.btn(href='/u/'+user.local.email, role='button') Profile
+        a.btn(href='/u/'+user.local.username, role='button') Profile
       else
         a.btn(href='/login', role='button') Log in
         a.btn(href='/signup', role='button') Sign up
     if discussions
-      h4 Recent discussions
-      each discussion in discussions
-        a(href="/discussion/"+discussion._id)= discussion.title
-        p= discussion.description
+      .container
+        h1 Recent discussions
+        .scheidingStreep
+        each discussion in discussions
+          h2.index__discussion
+            a(href="/discussion/"+discussion._id)= discussion.title
+          h5.index__discussions--description= discussion.description
