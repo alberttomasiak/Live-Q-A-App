@@ -34,9 +34,10 @@ function getOne(req, res, next) {
 		var Questions = Question.find({discussionID: discussion._id}, function(err, dataQuestions){
 			
 			var Comments = Comment.find({discussionID: discussion._id}, function(err, dataComments){
-				
+				var time = discussion.time.toString();
+                var format = time.substring(4,15);
 				//console.log(dataQuestions.length);
-				res.render('discussion', { title: discussion.title, description: discussion.description, user: req.user, discussionID: discussion._id,
+				res.render('discussion', { title: discussion.title, time: format, description: discussion.description, user: req.user, discussionID: discussion._id,
 			    questions: dataQuestions, comments: dataComments});
 			});
 		});

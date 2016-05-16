@@ -42,7 +42,6 @@ $( document ).ready(function() {
 		var li = "<li>"+msg+"</li>";
 		$('.thread__answers ul').append($('<li>').text(data));
 		console.log("Bericht: " + data);
-		
 	});
 
 });

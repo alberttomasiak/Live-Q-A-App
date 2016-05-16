@@ -24,7 +24,7 @@ html(lang='en')
         if(user)
           p= user.local.username
           input#currentUsername(type='hidden', value=user.local.username, name='currentUsername')
-        span June 20, 2016
+        span= time
         ul
           li user1
           li user2
